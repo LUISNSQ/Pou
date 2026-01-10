@@ -1,17 +1,18 @@
 package com.example.pouxml
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.*
 
 @Composable
 fun NavGraph() {
     val navController = rememberNavController()
+    val vm: PouViewModel = viewModel()
 
-    NavHost(navController, startDestination = "home") {
-        composable("home") { HomeScreen(navController) }
-        composable("cozinha") { CozinhaScreen(navController) }
-        composable("banho") { BanhoScreen(navController) }
-        composable("quarto") { QuartoScreen(navController) }
+    NavHost(navController, startDestination = "cozinha") { // Começa direto na sala
+        composable("cozinha") { CozinhaScreen(navController, vm) }
+        composable("banho") { BanhoScreen(navController, vm) }
+        composable("quarto") { QuartoScreen(navController, vm) }
         composable("closet") { ClosetScreen(navController) }
         composable("shop") { ShopScreen(navController) }
     }

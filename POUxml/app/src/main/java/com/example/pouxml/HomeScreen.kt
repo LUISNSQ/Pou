@@ -8,11 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 
 @Composable
-fun HomeScreen(nav: NavController, vm: PouViewModel = viewModel()) {
+fun HomeScreen(nav: NavController, vm: PouViewModel) {
 
     Column(
         modifier = Modifier.fillMaxSize(),
