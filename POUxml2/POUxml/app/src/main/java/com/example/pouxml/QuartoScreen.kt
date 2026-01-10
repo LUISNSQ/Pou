@@ -1,7 +1,7 @@
 package com.example.pouxml
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable // Importante para o clique
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -26,7 +26,7 @@ fun QuartoScreen(nav: NavController, vm: PouViewModel) {
             contentScale = ContentScale.FillBounds
         )
 
-        MainLayout(nav = nav, vm = vm, titulo = "QUARTO", esquerda = "banho", direita = "cozinha") {
+        MainLayout(nav = nav, vm = vm, titulo = "QUARTO", esquerda = "banho", direita = "home") {
             // Teste
             if (estado.sleeping) {
                 Text(

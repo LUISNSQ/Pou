@@ -9,7 +9,8 @@ fun NavGraph() {
     val navController = rememberNavController()
     val vm: PouViewModel = viewModel()
 
-    NavHost(navController, startDestination = "cozinha") { // Começa direto na sala
+    NavHost(navController, startDestination = "home") { // Começa direto na sala
+        composable("home") { HomeScreen(navController, vm) }
         composable("cozinha") { CozinhaScreen(navController, vm) }
         composable("banho") { BanhoScreen(navController, vm) }
         composable("quarto") { QuartoScreen(navController, vm) }

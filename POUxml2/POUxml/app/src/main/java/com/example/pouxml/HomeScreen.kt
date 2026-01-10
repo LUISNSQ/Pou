@@ -1,54 +1,49 @@
 package com.example.pouxml
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
 fun HomeScreen(nav: NavController, vm: PouViewModel) {
-
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-
-        StatusBars(vm.estado.value)
-
-        Spacer(modifier = Modifier.height(16.dp))
-
+    val estado = vm.estado.value
+    Box(modifier = Modifier.fillMaxSize()) {
         Image(
-            painter = painterResource(vm.spriteAtual()),
-            contentDescription = "Pou",
-            modifier = Modifier.size(220.dp)
+            painter = painterResource(id = R.drawable.cenario1),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds
         )
 
-        Spacer(modifier = Modifier.height(24.dp))
-
-        MenuButton(R.drawable.icon_cozinha, "Cozinha") { nav.navigate("cozinha") }
-        MenuButton(R.drawable.icon_banho, "Casa de Banho") { nav.navigate("banho") }
-        MenuButton(R.drawable.icon_quarto, "Quarto") { nav.navigate("quarto") }
-        MenuButton(R.drawable.icon_closet, "Closet") { nav.navigate("closet") }
-        MenuButton(R.drawable.icon_shop, "Shop") { nav.navigate("shop") }
-    }
-}
-
-@Composable
-fun MenuButton(icon: Int, texto: String, onClick: () -> Unit) {
-    Button(onClick = onClick, modifier = Modifier.padding(4.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        MainLayout(nav = nav, vm = vm, titulo = "SALA", esquerda = "quarto", direita = "cozinha") {
+            // É o Xamuel UwU
             Image(
-                painter = painterResource(icon),
-                contentDescription = texto,
-                modifier = Modifier.size(28.dp)
+                painter = painterResource(vm.spriteAtual()),
+                contentDescription = "Pou",
+                modifier = Modifier.size(240.dp)
             )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(texto)
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 120.dp)
+                    .size(150.dp)
+                    .clickable { vm.pouFeliz() }) {
+                Image(
+                    painter = painterResource(R.drawable.roupa_chapeu),
+                    contentDescription = "Cama",
+                    modifier = Modifier.fillMaxSize()
+                )
+            }
         }
     }
 }

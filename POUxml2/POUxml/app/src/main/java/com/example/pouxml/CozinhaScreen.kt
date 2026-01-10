@@ -30,7 +30,7 @@ fun CozinhaScreen(nav: NavController, vm: PouViewModel) {
             contentScale = ContentScale.FillBounds
         )
 
-        MainLayout(nav = nav, vm = vm, titulo = "COZINHA", esquerda = "quarto", direita = "banho") {
+        MainLayout(nav = nav, vm = vm, titulo = "COZINHA", esquerda = "home", direita = "banho") {
             // É o Xamuel UwU
             Image(
                 painter = painterResource(vm.spriteAtual()),

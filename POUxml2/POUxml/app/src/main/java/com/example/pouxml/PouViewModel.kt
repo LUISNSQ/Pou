@@ -43,6 +43,16 @@ class PouViewModel : ViewModel() {
         )
     }
 
+    fun comprarItem(preco: Int) {
+        if (estado.value.moedas >= preco) {
+            estado.value = estado.value.copy(
+                moedas = estado.value.moedas - preco
+            )
+            // Aqui podes disparar um som de moedas ou uma mensagem de "Sucesso!"
+        }
+    }
+
+
     fun dormir() {
         val isSleeping = !estado.value.sleeping
         estado.value = estado.value.copy(sleeping = isSleeping)
@@ -61,6 +71,10 @@ class PouViewModel : ViewModel() {
             estado.value.higiene < 30 -> R.drawable.pou_sujo
             else -> R.drawable.pou_idle
         }
+    }
+
+    fun pouFeliz(){
+        estado.value = estado.value.copy(felicidade = (estado.value.felicidade + 10).coerceAtMost(100))
     }
 
 
