@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
 fun CozinhaScreen(nav: NavController, vm: PouViewModel) {
     var comidaOffset by remember { mutableStateOf(Offset.Zero) }
     val estado = vm.estado.value
-
+    // Desenha o fundo
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.cenario2),

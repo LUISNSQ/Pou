@@ -19,8 +19,7 @@ class PouViewModel : ViewModel() {
                 delay(1000) // Isto espera 1 segundo
                 // Dormir
                 if (estado.value.sleeping == true) {
-                    estado.value =
-                        estado.value.copy(energia = (estado.value.energia + 5).coerceAtMost(100))
+                    estado.value = estado.value.copy(energia = (estado.value.energia + 5).coerceAtMost(100))
                 }
                 // Fome e gasto de energia
                 else if(estado.value.sleeping == false) {
@@ -37,27 +36,20 @@ class PouViewModel : ViewModel() {
     init {
         gameTimer()
     }
+    // Comer + fome
     fun alimentar() {
         estado.value = estado.value.copy(
             fome = (estado.value.fome + 10).coerceAtMost(100)
         )
     }
 
-    fun comprarItem(preco: Int) {
-        if (estado.value.moedas >= preco) {
-            estado.value = estado.value.copy(
-                moedas = estado.value.moedas - preco
-            )
-            // Aqui podes disparar um som de moedas ou uma mensagem de "Sucesso!"
-        }
-    }
-
-
+// Para ele adormecer
     fun dormir() {
         val isSleeping = !estado.value.sleeping
         estado.value = estado.value.copy(sleeping = isSleeping)
     }
 
+    // Toma banho +higiene
     fun tomarBanho() {
         estado.value = estado.value.copy(
             higiene = (estado.value.higiene + 15).coerceAtMost(100)
@@ -73,9 +65,25 @@ class PouViewModel : ViewModel() {
         }
     }
 
+    // Felicidade do pou
     fun pouFeliz(){
         estado.value = estado.value.copy(felicidade = (estado.value.felicidade + 10).coerceAtMost(100))
     }
+    // Comprar itens
+    fun comprarItem(preco: Int) {
+        if (estado.value.moedas >= preco) {
+            estado.value = estado.value.copy(moedas = estado.value.moedas - preco)
+        }
+    }
+    //Adicionar itens ao inventario
+    fun adInventario(item: ItemShop){
+        if(estado.value.moedas >= item.preco) {
+            val novoInventario = estado.value.inventario.toMutableList()
+            novoInventario.add(item)
+            estado.value = estado.value.copy(inventario = novoInventario)
+        }
+        }
+
 
 
 }

@@ -18,6 +18,7 @@ import androidx.navigation.NavController
 fun QuartoScreen(nav: NavController, vm: PouViewModel) {
     val estado = vm.estado.value
 
+    // Desenha o fundo
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.cenario4),

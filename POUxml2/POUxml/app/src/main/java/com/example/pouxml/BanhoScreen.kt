@@ -22,6 +22,7 @@ fun BanhoScreen(nav: NavController, vm: PouViewModel) {
     var sabaoOffset by remember { mutableStateOf(Offset.Zero) }
     val estado = vm.estado.value
 
+    // Desenha o fundo
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.cenario3),

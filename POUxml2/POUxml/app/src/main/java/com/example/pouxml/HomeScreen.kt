@@ -17,12 +17,13 @@ import androidx.navigation.NavController
 @Composable
 fun HomeScreen(nav: NavController, vm: PouViewModel) {
     val estado = vm.estado.value
+    // Desenha o fundo
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.cenario1),
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
+            contentScale = ContentScale.FillBounds // preenche a tela toda com a imagem
         )
 
         MainLayout(nav = nav, vm = vm, titulo = "SALA", esquerda = "quarto", direita = "cozinha") {
@@ -31,7 +32,7 @@ fun HomeScreen(nav: NavController, vm: PouViewModel) {
                 painter = painterResource(vm.spriteAtual()),
                 contentDescription = "Pou",
                 modifier = Modifier.size(240.dp)
-            )
+            ) // Adicionei esta logica do botao para dar felicidade mas nao sei o que fazer com ele
             Box(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
