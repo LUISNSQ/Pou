@@ -1,9 +1,8 @@
 package com.example.pouxml
 
 enum class TipoItem {
-    COMIDA, ROUPA
+    COMIDA, ROUPA, ACESSORIO
 }
-
 data class ItemShop(
     val id: Int,
     val nome: String,
