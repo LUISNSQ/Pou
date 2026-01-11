@@ -14,7 +14,8 @@ fun NavGraph() {
         composable("cozinha") { CozinhaScreen(navController, vm) }
         composable("banho") { BanhoScreen(navController, vm) }
         composable("quarto") { QuartoScreen(navController, vm) }
-        composable("closet") { ClosetScreen(navController) }
+        composable("closet") { ClosetScreen(navController, vm) }
+        composable("fridge") { FridgeScreen(navController, vm) }
         composable("shop") { ShopScreen(navController, vm) }
     }
 }

@@ -2,88 +2,87 @@ package com.example.pouxml
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class PouViewModel : ViewModel() {
 
     var estado = mutableStateOf(PouEstado())
         private set
-    private var contadorCiclos = 0
 
-    // Adicionei um temporizador para o jogo
-    private fun gameTimer(){
-        viewModelScope.launch {
-            while(true) {
-                delay(1000) // Isto espera 1 segundo
-                // Dormir
-                if (estado.value.sleeping == true) {
-                    estado.value = estado.value.copy(energia = (estado.value.energia + 5).coerceAtMost(100))
-                }
-                // Fome e gasto de energia
-                else if(estado.value.sleeping == false) {
-                    contadorCiclos++
-                    if (contadorCiclos >= 10) {
-                        estado.value = estado.value.copy(fome = (estado.value.fome - 1).coerceAtLeast(0), energia = (estado.value.energia - 1).coerceAtLeast(0))
-                        contadorCiclos = 0
-                    }
-                }
-            }
+    fun alimentar() {
+        if (estado.value.stockComida.isNotEmpty() && !estado.value.estaDormindo) {
+            estado.value = estado.value.copy(
+                fome = (estado.value.fome + 15).coerceAtMost(100),
+                stockComida = estado.value.stockComida.drop(1) // Remove o primeiro item do stock
+            )
         }
     }
 
-    init {
-        gameTimer()
-    }
-    // Comer + fome
-    fun alimentar() {
-        estado.value = estado.value.copy(
-            fome = (estado.value.fome + 10).coerceAtMost(100)
-        )
+    fun alternarSono() {
+        estado.value = estado.value.copy(estaDormindo = !estado.value.estaDormindo)
     }
 
-// Para ele adormecer
     fun dormir() {
-        val isSleeping = !estado.value.sleeping
-        estado.value = estado.value.copy(sleeping = isSleeping)
+        if (estado.value.estaDormindo) {
+            estado.value = estado.value.copy(
+                energia = (estado.value.energia + 5).coerceAtMost(100)
+            )
+        }
     }
 
-    // Toma banho +higiene
     fun tomarBanho() {
-        estado.value = estado.value.copy(
-            higiene = (estado.value.higiene + 15).coerceAtMost(100)
-        )
+        if (!estado.value.estaDormindo) {
+            estado.value = estado.value.copy(
+                higiene = (estado.value.higiene + 20).coerceAtMost(100)
+            )
+        }
+    }
+
+    fun pouFeliz() {
+        if (!estado.value.estaDormindo) {
+            estado.value = estado.value.copy(
+                felicidade = (estado.value.felicidade + 20).coerceAtMost(100)
+            )
+        }
+    }
+
+    fun comprarItem(item: ItemShop) {
+        if (estado.value.moedas >= item.preco) {
+            val novoInventario = if (item.tipo == TipoItem.ROUPA || item.tipo == TipoItem.ACESSORIO) {
+                if (estado.value.inventario.any { it.id == item.id }) estado.value.inventario 
+                else estado.value.inventario + item
+            } else {
+                estado.value.inventario
+            }
+            
+            var novoStockComida = estado.value.stockComida
+            if (item.tipo == TipoItem.COMIDA) {
+                novoStockComida = novoStockComida + item
+            }
+
+            estado.value = estado.value.copy(
+                moedas = estado.value.moedas - item.preco,
+                inventario = novoInventario,
+                stockComida = novoStockComida
+            )
+        }
+    }
+
+    fun vestirRoupa(item: ItemShop?) {
+        estado.value = estado.value.copy(roupaEquipada = item)
+    }
+
+    fun equiparAcessorio(item: ItemShop?) {
+        estado.value = estado.value.copy(acessorioEquipado = item)
     }
 
     fun spriteAtual(): Int {
+        if (estado.value.estaDormindo) return R.drawable.pou_dormir
+        
         return when {
-            estado.value.energia < 20 -> R.drawable.pou_dormir
             estado.value.fome < 30 -> R.drawable.pou_fome
             estado.value.higiene < 30 -> R.drawable.pou_sujo
+            estado.value.energia < 30 -> R.drawable.pou_dormir 
             else -> R.drawable.pou_idle
         }
     }
-
-    // Felicidade do pou
-    fun pouFeliz(){
-        estado.value = estado.value.copy(felicidade = (estado.value.felicidade + 10).coerceAtMost(100))
-    }
-    // Comprar itens
-    fun comprarItem(preco: Int) {
-        if (estado.value.moedas >= preco) {
-            estado.value = estado.value.copy(moedas = estado.value.moedas - preco)
-        }
-    }
-    //Adicionar itens ao inventario
-    fun adInventario(item: ItemShop){
-        if(estado.value.moedas >= item.preco) {
-            val novoInventario = estado.value.inventario.toMutableList()
-            novoInventario.add(item)
-            estado.value = estado.value.copy(inventario = novoInventario)
-        }
-        }
-
-
-
 }

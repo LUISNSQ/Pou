@@ -10,7 +10,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -21,72 +20,59 @@ import kotlin.math.roundToInt
 fun CozinhaScreen(nav: NavController, vm: PouViewModel) {
     var comidaOffset by remember { mutableStateOf(Offset.Zero) }
     val estado = vm.estado.value
-    // Desenha o fundo
-    Box(modifier = Modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(id = R.drawable.cenario2),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
-        )
 
-        MainLayout(nav = nav, vm = vm, titulo = "COZINHA", esquerda = "home", direita = "banho") {
-            // É o Xamuel UwU
-            Image(
-                painter = painterResource(vm.spriteAtual()),
-                contentDescription = "Pou",
-                modifier = Modifier.size(240.dp)
-            )
+    MainLayout(
+        nav = nav,
+        vm = vm,
+        titulo = "COZINHA",
+        esquerda = "home",
+        direita = "banho",
+        customBottomLeftIcon = R.drawable.fridge_icon,
+        onBottomLeftClick = { nav.navigate("fridge") }
+    ) {
+        // Lógica da comida para arrastar
+        if (estado.stockComida.isNotEmpty()) {
+            val primeiraComida = estado.stockComida.first()
 
-            if (estado.stockComida.isNotEmpty()) {
-                val primeiraComida = estado.stockComida.first()
-
-                Box(modifier = Modifier.offset {
+            Box(modifier = Modifier
+                .offset {
                     IntOffset(
                         comidaOffset.x.roundToInt(),
                         comidaOffset.y.roundToInt()
                     )
                 }
-                    .align(Alignment.BottomCenter).padding(bottom = 120.dp).size(80.dp)
-                    .pointerInput(Unit) {
-                        detectDragGestures(
-                            onDragEnd = {
-                                // Verifica colisão simples: se a comida está perto do centro do Pou
-                                // pouPosition é o canto superior esquerdo do Pou.
-                                // O centro do Pou está aprox em pouPosition + 120dp
-                                if (comidaOffset.y < -150f) { // Se arrastou para cima o suficiente
-                                    vm.alimentar()
-                                    // Reset da posição para a próxima comida (ou lógica de remover do stock)
-                                    comidaOffset = Offset.Zero
-                                } else {
-                                    comidaOffset =
-                                        Offset.Zero // Volta para o sítio se não chegou ao Pou
-                                }
-                            },
-                            onDrag = { change, dragAmount ->
-                                change.consume()
-                                comidaOffset += dragAmount
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 120.dp)
+                .size(80.dp)
+                .pointerInput(Unit) {
+                    detectDragGestures(
+                        onDragEnd = {
+                            // Verifica se arrastou para cima em direção ao Pou
+                            if (comidaOffset.y < -150f) {
+                                vm.alimentar()
                             }
-                        )
-                    }
-                ) {
-                    Image(
-                        painter = painterResource(primeiraComida),
-                        contentDescription = "Comida para arrastar",
-                        modifier = Modifier.fillMaxSize()
+                            comidaOffset = Offset.Zero
+                        },
+                        onDrag = { change, dragAmount ->
+                            change.consume()
+                            comidaOffset += dragAmount
+                        }
                     )
                 }
-            } else {
-                // Se não houver comida
-                Text(
-                    "Sem comida!",
-                    modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 140.dp),
-                    color = MaterialTheme.colorScheme.error
+            ) {
+                Image(
+                    painter = painterResource(primeiraComida.imagemRes),
+                    contentDescription = "Comida",
+                    modifier = Modifier.fillMaxSize()
                 )
             }
-
-
+        } else {
+            Text(
+                "Sem comida!",
+                modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 140.dp),
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
-
     }
 }

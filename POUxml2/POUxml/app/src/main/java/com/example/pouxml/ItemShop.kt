@@ -1,12 +1,4 @@
 package com.example.pouxml
 
-enum class TipoItem {
-    COMIDA, ROUPA, ACESSORIO
-}
-data class ItemShop(
-    val id: Int,
-    val nome: String,
-    val preco: Int,
-    val tipo: TipoItem,
-    val imagemRes: Int
-)
+// Este ficheiro pode ser removido ou deixado vazio se as definições 
+// já estiverem no PouEstado.kt para evitar erros de redeclaração.
