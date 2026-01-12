@@ -30,13 +30,13 @@ fun BanhoScreen(nav: NavController, vm: PouViewModel) {
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.FillBounds)
 
-        MainLayout(nav = nav, vm = vm, titulo = "BANHO", esquerda = "cozinha", direita = "quarto") {
+        MainLayout(nav = nav, vm = vm, titulo = "CASA DE BANHO", esquerda = "cozinha", direita = "quarto") {
             Box(
                 modifier = Modifier
                 .offset { IntOffset(sabaoOffset.x.roundToInt(), sabaoOffset.y.roundToInt()) }
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 120.dp)
-                .size(80.dp)
+                .size(150.dp) //  Aumentei de 80dp para 150dp para igualar a cama
                 .pointerInput(Unit) {
                     detectDragGestures(
                         onDragEnd = {
@@ -60,7 +60,5 @@ fun BanhoScreen(nav: NavController, vm: PouViewModel) {
                 )
             }
         }
-
-
     }
 }

@@ -21,10 +21,10 @@ import androidx.navigation.NavController
 fun ShopScreen(nav: NavController, vm: PouViewModel) {
     val estado = vm.estado.value
 
-    //Lista dos objetos, depois podemos meter mais
+    // Atualizei os recursos de imagem para Maçã e Hambúrguer para serem diferentes
     val itensLoja = listOf(
-        ItemShop(1, "Maçã", 10, TipoItem.COMIDA, R.drawable.item_comida),
-        ItemShop(2, "Hambúrguer", 25, TipoItem.COMIDA, R.drawable.item_comida),
+        ItemShop(1, "Maçã", 10, TipoItem.COMIDA, R.drawable.item_maca),
+        ItemShop(2, "Hambúrguer", 25, TipoItem.COMIDA, R.drawable.item_hamburguer),
         ItemShop(3, "Tree", 50, TipoItem.ROUPA, R.drawable.camisola1),
         ItemShop(4, "Alternative", 50, TipoItem.ROUPA, R.drawable.camisola2),
         ItemShop(5, "Bird", 50, TipoItem.ROUPA, R.drawable.camisola3),
@@ -34,7 +34,6 @@ fun ShopScreen(nav: NavController, vm: PouViewModel) {
         ItemShop(9, "Acessório 3", 150, TipoItem.ACESSORIO, R.drawable.acessorio3)
     )
     Column(modifier = Modifier.fillMaxSize().background(Color(0xFFF0F0F0))) {
-        // Moedas no topo e botao de voltar
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -52,16 +51,14 @@ fun ShopScreen(nav: NavController, vm: PouViewModel) {
                     contentDescription = null,
                     modifier = Modifier.size(24.dp)
                 )
-
             }
-
         }
-        // Desenho das prateleiras
+        
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {  // Para cada item da loja, percorre todos
+        ) {
             items(itensLoja) { item ->
                 val jaAdquirido =
                     (item.tipo == TipoItem.ROUPA || item.tipo == TipoItem.ACESSORIO) &&
@@ -76,7 +73,7 @@ fun ShopScreen(nav: NavController, vm: PouViewModel) {
                         },
                     elevation = CardDefaults.cardElevation(4.dp),
                     colors = CardDefaults.cardColors(containerColor = Color.White)
-                ) { //Imagem do item
+                ) {
                     Box(modifier = Modifier.fillMaxSize().padding(12.dp)) {
                         Text(item.nome, fontWeight = FontWeight.Bold)
                         Image(
@@ -85,7 +82,6 @@ fun ShopScreen(nav: NavController, vm: PouViewModel) {
                             modifier = Modifier.size(60.dp).align(Alignment.Center)
                         )
 
-                        // Preço de cada item em cada prateleira no canto inferior direito
                         Row(
                             modifier = Modifier
                                 .align(Alignment.BottomEnd)
@@ -96,7 +92,7 @@ fun ShopScreen(nav: NavController, vm: PouViewModel) {
                                 .padding(horizontal = 8.dp, vertical = 4.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            if (jaAdquirido) { // Se ja foi comprado tira o preço
+                            if (jaAdquirido) {
                                 Text(
                                     text = "ADQUIRIDO",
                                     fontWeight = FontWeight.Bold,
@@ -116,17 +112,10 @@ fun ShopScreen(nav: NavController, vm: PouViewModel) {
                                     modifier = Modifier.size(16.dp)
                                 )
                             }
-
                         }
-
                     }
-
                 }
-
             }
-
-
         }
     }
 }
-

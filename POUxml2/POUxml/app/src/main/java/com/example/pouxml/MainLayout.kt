@@ -1,6 +1,7 @@
 package com.example.pouxml
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -9,12 +10,22 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 
 @Composable
-fun MainLayout(nav: NavController, vm: PouViewModel, titulo: String, esquerda: String, direita: String, content: @Composable BoxScope.() -> Unit) {
+fun MainLayout(
+    nav: NavController, 
+    vm: PouViewModel, 
+    titulo: String, 
+    esquerda: String, 
+    direita: String, 
+    customBottomLeftIcon: Int? = null,
+    onBottomLeftClick: (() -> Unit)? = null,
+    content: @Composable BoxScope.() -> Unit
+) {
     val estado = vm.estado.value
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -37,7 +48,7 @@ fun MainLayout(nav: NavController, vm: PouViewModel, titulo: String, esquerda: S
             }
         }
 
-        // Conteúdo central (Pou e botões de ação)
+        // Conteúdo central (Xamuel e botões dedicados a cada screen)
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
@@ -74,35 +85,48 @@ fun MainLayout(nav: NavController, vm: PouViewModel, titulo: String, esquerda: S
             content()
         }
 
-        Row(
+
+        // Desenhos dos botões embaixo do layout geral
+        Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .fillMaxWidth()
-                .padding(bottom = 32.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
+                .height(130.dp)
+                .background(Color.Black.copy(alpha = 0.12f))
         ) {
-            IconButton(onClick = { nav.navigate("closet") }) {
-                Image(
-                    painter = painterResource(R.drawable.icon_closet),
-                    contentDescription = "Closet", modifier = Modifier.size(60.dp)
-                )
+            Row(
+                modifier = Modifier.fillMaxSize(),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                val leftIcon = customBottomLeftIcon ?: R.drawable.icon_closet
+                val leftAction = onBottomLeftClick ?: { nav.navigate("closet") }
+
+
+                IconButton(
+                    onClick = leftAction,
+                    modifier = Modifier.size(110.dp) 
+                ) {
+                    Image(
+                        painter = painterResource(leftIcon),
+                        contentDescription = "Bottom Left Action", 
+                        modifier = Modifier.size(100.dp)
+                    )
+                }
+                
+                Spacer(modifier = Modifier.width(40.dp))
+
+                IconButton(
+                    onClick = { nav.navigate("shop") },
+                    modifier = Modifier.size(110.dp)
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.icon_shop),
+                        contentDescription = "Shop", 
+                        modifier = Modifier.size(100.dp)
+                    )
+                }
             }
-            // É para o botao do meio
-            Spacer(modifier = Modifier.width(100.dp))
-
-            IconButton(onClick = { nav.navigate("shop") }) {
-                Image(
-                    painter = painterResource(R.drawable.icon_shop),
-                    contentDescription = "Shop", modifier = Modifier.size(60.dp)
-                )
-            }
-
-
         }
-
-
     }
-
-
 }

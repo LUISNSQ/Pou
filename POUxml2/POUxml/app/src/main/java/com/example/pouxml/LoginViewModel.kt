@@ -8,11 +8,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 class LoginViewModel: ViewModel() {
     private val auth = FirebaseAuth.getInstance()
     private val db = FirebaseFirestore.getInstance()
-
     var email = mutableStateOf("")
     var password = mutableStateOf("")
     var user = mutableStateOf("")
 
+
+    // Login do user
     fun login(onSucessed: () -> Unit, onError: (String) -> Unit) {
         if (email.value.isEmpty() || password.value.isEmpty()) return
 
@@ -21,6 +22,7 @@ class LoginViewModel: ViewModel() {
             .addOnFailureListener { onError("Erro. Verifique os dados.") }
     }
 
+    // Cria conta e regista o estado do utilizador na firebase
     fun register(onSucesso: () -> Unit, onError: (String) -> Unit){
         if (email.value.isEmpty() || password.value.isEmpty() || user.value.isEmpty()) return
 
@@ -34,13 +36,9 @@ class LoginViewModel: ViewModel() {
                     "roupaEquipada" to null,
                     "acessorioEquipado" to null
                 )
-
                 db.collection("jogadores").document(uid).set(perfil)
                     .addOnSuccessListener { onSucesso() }
-
-
             }
             .addOnFailureListener { onError("Erro no registo: ${it.message}") }
     }
-
 }

@@ -30,7 +30,7 @@ fun CozinhaScreen(nav: NavController, vm: PouViewModel) {
             contentScale = ContentScale.FillBounds
         )
 
-        MainLayout(nav = nav, vm = vm, titulo = "COZINHA", esquerda = "home", direita = "banho") {
+        MainLayout(nav = nav, vm = vm, titulo = "COZINHA", esquerda = "home", direita = "banho", customBottomLeftIcon = R.drawable.icon_fridge, onBottomLeftClick = { nav.navigate("fridge") }) {
 
             if (estado.stockComida.isNotEmpty()) {
                 val primeiraComida = estado.stockComida.first()
@@ -41,20 +41,15 @@ fun CozinhaScreen(nav: NavController, vm: PouViewModel) {
                         comidaOffset.y.roundToInt()
                     )
                 }
-                    .align(Alignment.BottomCenter).padding(bottom = 120.dp).size(80.dp)
+                    .align(Alignment.BottomCenter).padding(bottom = 140.dp).size(110.dp) // Ajustado para 110dp para equilíbrio visual
                     .pointerInput(Unit) {
                         detectDragGestures(
                             onDragEnd = {
-                                // Verifica colisão simples: se a comida está perto do centro do Pou
-                                // pouPosition é o canto superior esquerdo do Pou.
-                                // O centro do Pou está aprox em pouPosition + 120dp
-                                if (comidaOffset.y < -150f) { // Se arrastou para cima o suficiente
-                                    vm.alimentar()
-                                    // Reset da posição para a próxima comida (ou lógica de remover do stock)
+                                if (comidaOffset.y < -150f) {
+                                    vm.comer(primeiraComida)
                                     comidaOffset = Offset.Zero
                                 } else {
-                                    comidaOffset =
-                                        Offset.Zero // Volta para o sítio se não chegou ao Pou
+                                    comidaOffset = Offset.Zero
                                 }
                             },
                             onDrag = { change, dragAmount ->
@@ -71,16 +66,12 @@ fun CozinhaScreen(nav: NavController, vm: PouViewModel) {
                     )
                 }
             } else {
-                // Se não houver comida
                 Text(
                     "Sem comida!",
                     modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 140.dp),
                     color = MaterialTheme.colorScheme.error
                 )
             }
-
-
         }
-
     }
 }

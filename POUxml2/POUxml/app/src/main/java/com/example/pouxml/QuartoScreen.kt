@@ -1,6 +1,7 @@
 package com.example.pouxml
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -27,16 +28,25 @@ fun QuartoScreen(nav: NavController, vm: PouViewModel) {
             contentScale = ContentScale.FillBounds
         )
 
+        // Fica mais escuro se estiver a dormir
+        if (estado.sleeping) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black.copy(alpha = 0.6f)) // Escurece o quarto
+            )
+        }
+
         MainLayout(nav = nav, vm = vm, titulo = "QUARTO", esquerda = "banho", direita = "home") {
-            // Teste
             if (estado.sleeping) {
                 Text(
                     text = "Zzzzz...",
                     modifier = Modifier.align(Alignment.TopCenter).padding(top = 150.dp),
                     fontSize = 40.sp,
-                    color = Color.Gray
+                    color = Color.White // Mudado para branco para destacar no escuro
                 )
             }
+            
             Box(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
