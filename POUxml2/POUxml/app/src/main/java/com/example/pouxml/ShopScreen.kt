@@ -25,21 +25,24 @@ fun ShopScreen(nav: NavController, vm: PouViewModel) {
     val itensLoja = listOf(
         ItemShop(1, "Maçã", 10, TipoItem.COMIDA, R.drawable.item_maca),
         ItemShop(2, "Hambúrguer", 25, TipoItem.COMIDA, R.drawable.item_hamburguer),
-        ItemShop(3, "Tree", 50, TipoItem.ROUPA, R.drawable.camisola1),
-        ItemShop(4, "Alternative", 50, TipoItem.ROUPA, R.drawable.camisola2),
-        ItemShop(5, "Bird", 50, TipoItem.ROUPA, R.drawable.camisola3),
-        ItemShop(6, "Car", 50, TipoItem.ROUPA, R.drawable.camisola4),
-        ItemShop(7, "Acessório 1", 100, TipoItem.ACESSORIO, R.drawable.acessorio1),
-        ItemShop(8, "Acessório 2", 150, TipoItem.ACESSORIO, R.drawable.acessorio2),
-        ItemShop(9, "Acessório 3", 150, TipoItem.ACESSORIO, R.drawable.acessorio3)
+        ItemShop(3, "Árvore", 50, TipoItem.ROUPA, R.drawable.camisola1),
+        ItemShop(4, "Alterno", 50, TipoItem.ROUPA, R.drawable.camisola2),
+        ItemShop(5, "Chuck", 50, TipoItem.ROUPA, R.drawable.camisola3),
+        ItemShop(6, "Carro", 50, TipoItem.ROUPA, R.drawable.camisola4),
+        ItemShop(7, "Ramo", 100, TipoItem.ACESSORIO, R.drawable.acessorio1),
+        ItemShop(8, "Gorro", 150, TipoItem.ACESSORIO, R.drawable.acessorio2),
+        ItemShop(9, "Chapéu", 150, TipoItem.ACESSORIO, R.drawable.acessorio3)
     )
+
+    // Isto é para agrupar os itens por tipo para as secções corretas
+    val itensAgrupados = itensLoja.groupBy { it.tipo }
+
     Column(modifier = Modifier.fillMaxSize().background(Color(0xFFF0F0F0))) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(16.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-
             Button(onClick = { nav.popBackStack() }) { Text("Voltar") }
             Text("LOJA", fontSize = 24.sp, fontWeight = FontWeight.Bold)
 
@@ -53,64 +56,83 @@ fun ShopScreen(nav: NavController, vm: PouViewModel) {
                 )
             }
         }
-        
+
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            contentPadding = PaddingValues(16.dp)
         ) {
-            items(itensLoja) { item ->
-                val jaAdquirido =
-                    (item.tipo == TipoItem.ROUPA || item.tipo == TipoItem.ACESSORIO) &&
-                            estado.inventario.any { it.id == item.id }
+            itensAgrupados.forEach { (tipo, itens) ->
+                // Cabeçalho da secção
+                item {
+                    val titulo = when (tipo) {
+                        TipoItem.COMIDA -> "Comida"
+                        TipoItem.ROUPA -> "Roupa"
+                        TipoItem.ACESSORIO -> "Acessório"
+                    }
+                    Text(
+                        text = titulo.uppercase(),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(top = 16.dp, bottom = 8.dp),
+                        color = Color.Gray
+                    )
+                }
 
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(110.dp)
-                        .clickable {
-                            vm.adInventario(item)
-                        },
-                    elevation = CardDefaults.cardElevation(4.dp),
-                    colors = CardDefaults.cardColors(containerColor = Color.White)
-                ) {
-                    Box(modifier = Modifier.fillMaxSize().padding(12.dp)) {
-                        Text(item.nome, fontWeight = FontWeight.Bold)
-                        Image(
-                            painter = painterResource(item.imagemRes),
-                            contentDescription = item.nome,
-                            modifier = Modifier.size(60.dp).align(Alignment.Center)
-                        )
+                // Itens da secção
+                items(itens) { item ->
+                    val jaAdquirido =
+                        (item.tipo == TipoItem.ROUPA || item.tipo == TipoItem.ACESSORIO) &&
+                                estado.inventario.any { it.id == item.id }
 
-                        Row(
-                            modifier = Modifier
-                                .align(Alignment.BottomEnd)
-                                .background(
-                                    if (jaAdquirido) Color.Gray else Color(0xFFFFD700),
-                                    shape = MaterialTheme.shapes.small
-                                )
-                                .padding(horizontal = 8.dp, vertical = 4.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            if (jaAdquirido) {
-                                Text(
-                                    text = "ADQUIRIDO",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 12.sp,
-                                    color = Color.White
-                                )
-                            } else {
-                                Text(
-                                    text = "${item.preco}",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 14.sp
-                                )
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Image(
-                                    painter = painterResource(id = R.drawable.icon_moedas),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(16.dp)
-                                )
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 8.dp)
+                            .height(110.dp)
+                            .clickable {
+                                vm.adInventario(item)
+                            },
+                        elevation = CardDefaults.cardElevation(4.dp),
+                        colors = CardDefaults.cardColors(containerColor = Color.White)
+                    ) {
+                        Box(modifier = Modifier.fillMaxSize().padding(12.dp)) {
+                            Text(item.nome, fontWeight = FontWeight.Bold)
+                            Image(
+                                painter = painterResource(item.imagemRes),
+                                contentDescription = item.nome,
+                                modifier = Modifier.size(60.dp).align(Alignment.Center)
+                            )
+
+                            Row(
+                                modifier = Modifier
+                                    .align(Alignment.BottomEnd)
+                                    .background(
+                                        if (jaAdquirido) Color.Gray else Color(0xFFFFD700),
+                                        shape = MaterialTheme.shapes.small
+                                    )
+                                    .padding(horizontal = 8.dp, vertical = 4.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                if (jaAdquirido) {
+                                    Text(
+                                        text = "ADQUIRIDO",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 12.sp,
+                                        color = Color.White
+                                    )
+                                } else {
+                                    Text(
+                                        text = "${item.preco}",
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 14.sp
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Image(
+                                        painter = painterResource(id = R.drawable.icon_moedas),
+                                        contentDescription = null,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                }
                             }
                         }
                     }
