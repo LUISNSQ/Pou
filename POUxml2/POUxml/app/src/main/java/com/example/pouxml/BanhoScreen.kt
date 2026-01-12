@@ -31,13 +31,6 @@ fun BanhoScreen(nav: NavController, vm: PouViewModel) {
             contentScale = ContentScale.FillBounds)
 
         MainLayout(nav = nav, vm = vm, titulo = "BANHO", esquerda = "cozinha", direita = "quarto") {
-            // É o Xamuel UwU
-            Image(
-                painter = painterResource(vm.spriteAtual()),
-                contentDescription = "Pou",
-                modifier = Modifier.size(240.dp)
-            )
-
             Box(
                 modifier = Modifier
                 .offset { IntOffset(sabaoOffset.x.roundToInt(), sabaoOffset.y.roundToInt()) }

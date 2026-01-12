@@ -27,12 +27,7 @@ fun HomeScreen(nav: NavController, vm: PouViewModel) {
         )
 
         MainLayout(nav = nav, vm = vm, titulo = "SALA", esquerda = "quarto", direita = "cozinha") {
-            // É o Xamuel UwU
-            Image(
-                painter = painterResource(vm.spriteAtual()),
-                contentDescription = "Pou",
-                modifier = Modifier.size(240.dp)
-            ) // Adicionei esta logica do botao para dar felicidade mas nao sei o que fazer com ele
+            // Adicionei esta logica do botao para dar felicidade mas nao sei o que fazer com ele
             Box(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)

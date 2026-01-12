@@ -38,14 +38,14 @@ fun ClosetScreen(nav: NavController, vm: PouViewModel) {
                 Box(modifier = Modifier.size(60.dp))
             }
 
-            // Visualização do Pou
+            // Desenho do pou
             Box(modifier = Modifier.fillMaxWidth().height(260.dp), contentAlignment = Alignment.Center) {
                 Image(painter = painterResource(vm.spriteAtual()), contentDescription = "Pou", modifier = Modifier.size(200.dp))
                 estado.roupaEquipada?.let {
                     Image(painter = painterResource(it.imagemRes), contentDescription = null, modifier = Modifier.size(200.dp))
                 }
                 estado.acessorioEquipado?.let {
-                    Image(painter = painterResource(it.imagemRes), contentDescription = null, modifier = Modifier.size(200.dp).offset(y = (-35).dp))
+                    Image(painter = painterResource(it.imagemRes), contentDescription = null, modifier = Modifier.size(200.dp).offset(y = (-55).dp))
                 }
             }
 
@@ -56,7 +56,7 @@ fun ClosetScreen(nav: NavController, vm: PouViewModel) {
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                // Secção de ACESSÓRIOS primeiro
+                // Secção de acessorios
                 item(span = { GridItemSpan(3) }) {
                     Text("ACESSÓRIOS", color = Color.White, fontWeight = FontWeight.Bold, modifier = Modifier.padding(vertical = 8.dp))
                 }
@@ -79,8 +79,7 @@ fun ClosetScreen(nav: NavController, vm: PouViewModel) {
                 items(roupasNoCloset) { roupa ->
                     ClosetItemCard(roupa, estado.roupaEquipada?.id == roupa.id) { vm.vestirRoupa(roupa) }
                 }
-                
-                // Espaçamento final
+                // Espacinho
                 item(span = { GridItemSpan(3) }) {
                     Spacer(modifier = Modifier.height(32.dp))
                 }

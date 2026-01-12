@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "909544518024",
+    "project_id": "poumoveis",
+    "storage_bucket": "poumoveis.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909544518024:android:89b6510daaf04c092d8a3d",
+        "android_client_info": {
+          "package_name": "com.example.pouxml"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAR7NlOVqJMK7RTkNE_esV1a2LiuEiJ2g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
