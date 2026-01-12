@@ -10,8 +10,8 @@ fun NavGraph() {
     val vm: PouViewModel = viewModel()
     val loginVm: LoginViewModel = viewModel()
 
-    NavHost(navController, startDestination = "login") { // substituir para login
-        composable("login") { LoginScreenView(navController, loginVm, vm) }
+    NavHost(navController, startDestination = "home") { // substituir para login
+     //   composable("login") { LoginScreenView(navController, loginVm, vm) }
         composable("home") { HomeScreen(navController, vm) }
         composable("cozinha") { CozinhaScreen(navController, vm) }
         composable("banho") { BanhoScreen(navController, vm) }

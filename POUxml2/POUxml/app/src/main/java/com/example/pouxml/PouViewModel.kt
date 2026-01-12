@@ -104,13 +104,13 @@ class PouViewModel : ViewModel() {
     // Vestir
     fun vestirRoupa(item: ItemShop?) {
         estado.value = estado.value.copy(roupaEquipada = item)
-         guardarDados()
+       //  guardarDados()
     }
 
     // Vestir acessorio
     fun equiparAcessorio(item: ItemShop?) {
         estado.value = estado.value.copy(acessorioEquipado = item)
-        guardarDados()
+        //guardarDados()
     }
 
     // Carregar dados da Firebase
