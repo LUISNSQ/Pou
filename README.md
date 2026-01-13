@@ -1,5 +1,10 @@
 # My Little Xamuel
 
+## Trabalho realizado por:
+- Luís Gomes - 31473
+- David Guimarães - 31460
+- Pedro Cunha - 31462
+
 ## Introdução
 Neste projeto criamos um jogo baseado na aplicação “Pou”, onde o jogador tem a capacidade de cuidar de um ser de estimação. O jogo está dividido em divisões e cada uma delas tem uma característica  específica que permite ao jogador interagir com o seu animal.
 
@@ -62,7 +67,8 @@ Fridgescreen.kt é bastante semelhante ao ClosetScreen.kt mostrando o inventári
 Na HomeScreen é referenciado o sprite usado para o fundo da divisão “Sala”, neste ficheiro a lógica de um objeto diferente aos demais, ele é responsável pela criação de uma bola que o jogador pode atirar para qualquer canto da ecrã fazendo ricochete em cada borda. Com isso conseguimos aumentar a felicidade do nosso animal.
 
 ### QuartoScreen
-É responsável por referenciar o sprite usado para o fundo da divisão 
+É responsável por referenciar o sprite usado para o fundo da divisão , criando também a lógica do sabonete que começa por determinar a posição do sabonete fazendo este atualizar quando é pegado pelo utilizador de maneira a acompanhar o dedo no ecrã, quando o utilizador larga o sabonete ele volta à posição original (Offset.Zero). Também verifica se o sabonete está na mesma posição que o pou e se estiver ele chama a função tomarBanho().
+ 
 
 ### ShopScreen
 Responsável pela criação do layout da loja e por filtrar se um item é comida, roupa ou acessório. Este verifica também se o item já está no inventário do utilizador ou não e chama o PouViewModel.kt. Usa também LazyColumn para mostrar os itens
@@ -89,5 +95,31 @@ E por fim o utilizador pode colocar o animal a dormir no quarto para recuperar e
 Na aplicação existe uma loja onde o utilizador pode usar as moedas do jogo para comprar comida, roupas e acessórios. Também tem a funcionalidade de guarda-roupa onde o utilizador pode personalizar o ser com as roupas e acessórios comprados
 
 No início do jogo é pedido para o utilizador fazer login com o intuito de guardar o aspeto do seu animal e poder mostrar aos outros jogadores.
+
+## Desenhos, esquemas e protótipos da aplicação
+Os sprites dos ícones, dos itens e do pet foram desenhados em pixel art no piskel, assim como os sprites das roupas e acessórios. Os cenários foram gerados por inteligência artificial. Aqui está um exemplo de cada um.
+
+
+<img width="177" height="152" alt="camisola3" src="https://github.com/user-attachments/assets/ffe6c90a-8944-4560-98df-ab9401b60743" />
+<img width="500" height="500" alt="item_maca" src="https://github.com/user-attachments/assets/fe7e0068-422d-4715-84d8-016a8a34c24e" />
+<img width="832" height="1248" alt="cenario1" src="https://github.com/user-attachments/assets/c0fda569-e078-4bdc-9210-b5bc81e0527b" />
+
+## Dificuldades
+Tivemos dificuldades nas seguintes vertentes:
+Na implementação da firebase tivemos alguns problemas na maneira como estávamos a tentar guardar os dados, inicialmente pretendíamos apenas guardar o nome do utilizador e o ID das roupas para mostrar um display com o animal de todos os jogadores mas no fim acabamos por armazenar o estado todo. Após isso tivemos um problema onde o jogo dava crash ou não mostrava os animais dos outros. Para resolver certificamos que cada variável possuia um valor predefinido e verificamos se elas estavam a ser lidas corretamente e com alguns ajuste na tela de display conseguimos corrigir esse problema.
+
+
+Na implementação da lógica da bola.
+Na questão da bola, de forma mais detalhada as dificuldades que tivemos foram por conta do compose por natureza ser estático, ou seja o estado tinha que estar sempre a mudar, para resolver isto calculamos o vetor do movimento em vez de fazer com que a bola mudasse constantemente de posição, permitindo para um movimento mais fluido e simples. Também nos foi difícil fazer a inércia da bola, para o fazermos aplicámos uma corotina que é uma tarefa que pode ser pausada sem bloquear o funcionamento do resto do código.
+Quando o utilizador solta a bola (onDragEnd), lançamos essa corotina que continua a atualizar a posição da bola, diminuindo a velocidade gradualmente (simulando o atrito) até ela parar.
+
+## Conclusão
+Neste trabalho desenvolvemos a nossa interpretação de um jogo para cuidar de um pet. Com isto consolidamos conhecimentos em relação à Firebase e Kotlin assim como conseguimos entender melhor o modelo  de programação MVVM. Embora estejamos contentes com o resultado final achamos que ainda existem muitas melhorias que podemos fazer como a implementação de sons e minijogos para tornar o game loop ainda mais divertido.
+
+
+
+
+
+
 
 
