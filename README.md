@@ -15,7 +15,7 @@ O login e autenticação do utilizador é efetuado através da FireBase auth e a
 
 
 # Estrutura de Dados
-O programa está estruturada nos seguintes ficheiros
+O programa está estruturada nos seguintes ficheiros:
 
 ## Model
 ### PouEstado
