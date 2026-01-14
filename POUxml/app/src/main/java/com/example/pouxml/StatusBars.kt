@@ -33,7 +33,7 @@ fun StatusBars(estado: PouEstado, nav: NavController) {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Ícones  aumentados para 52dp
+
             StatusRow(R.drawable.icon_fome, estado.fome, Color(0xFFFF4444))
             StatusRow(R.drawable.icon_energia, estado.energia, Color(0xFFFFD700))
             StatusRow(R.drawable.icon_felicidade, estado.felicidade, Color(0xFF4CAF50))

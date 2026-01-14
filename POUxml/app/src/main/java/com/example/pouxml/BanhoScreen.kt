@@ -36,7 +36,7 @@ fun BanhoScreen(nav: NavController, vm: PouViewModel) {
                 .offset { IntOffset(sabaoOffset.x.roundToInt(), sabaoOffset.y.roundToInt()) }
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 120.dp)
-                .size(150.dp) //  Aumentei de 80dp para 150dp para igualar a cama
+                .size(150.dp)
                 .pointerInput(Unit) {
                     detectDragGestures(
                         onDragEnd = {

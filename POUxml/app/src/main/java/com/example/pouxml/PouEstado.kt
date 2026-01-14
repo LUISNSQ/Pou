@@ -11,7 +11,6 @@ data class PouEstado(
     val inventario: List<ItemShop> = emptyList(), // Lista de itens
     val roupaEquipada: ItemShop? = null,
     val acessorioEquipado: ItemShop? = null,
-    // Stock de comida: uma lista com os IDs dos recursos drawable
     val stockComida: List<Int> = emptyList()
 )
 enum class TipoItem {

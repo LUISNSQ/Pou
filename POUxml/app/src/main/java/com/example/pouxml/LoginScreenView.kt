@@ -97,7 +97,6 @@ fun LoginScreenView(nav: NavController, loginVm: LoginViewModel, vm: PouViewMode
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    // --- BOTÃO DE AÇÃO PRINCIPAL ---
                     Button(
                         onClick = {
                             if (isLoginMode) {

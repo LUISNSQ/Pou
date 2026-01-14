@@ -21,7 +21,6 @@ import androidx.navigation.NavController
 fun ShopScreen(nav: NavController, vm: PouViewModel) {
     val estado = vm.estado.value
 
-    // Atualizei os recursos de imagem para Maçã e Hambúrguer para serem diferentes
     val itensLoja = listOf(
         ItemShop(1, "Maçã", 10, TipoItem.COMIDA, R.drawable.item_maca),
         ItemShop(2, "Hambúrguer", 25, TipoItem.COMIDA, R.drawable.item_hamburguer),
