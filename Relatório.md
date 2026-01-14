@@ -100,9 +100,9 @@ No início do jogo é pedido para o utilizador fazer login com o intuito de guar
 Os sprites dos ícones, dos itens e do pet foram desenhados em pixel art no piskel, assim como os sprites das roupas e acessórios. Os cenários foram gerados por inteligência artificial. Aqui está um exemplo de cada um.
 
 
-<img width="177" height="152" alt="camisola3" src="https://github.com/user-attachments/assets/ffe6c90a-8944-4560-98df-ab9401b60743" />
-<img width="500" height="500" alt="item_maca" src="https://github.com/user-attachments/assets/fe7e0068-422d-4715-84d8-016a8a34c24e" />
-<img width="832" height="1248" alt="cenario1" src="https://github.com/user-attachments/assets/c0fda569-e078-4bdc-9210-b5bc81e0527b" />
+<img width="337" height="282" alt="camisola3" src="https://github.com/user-attachments/assets/ffe6c90a-8944-4560-98df-ab9401b60743" />
+<img width="300" height="300" alt="item_maca" src="https://github.com/user-attachments/assets/fe7e0068-422d-4715-84d8-016a8a34c24e" />
+<img width="532" height="948" alt="cenario1" src="https://github.com/user-attachments/assets/c0fda569-e078-4bdc-9210-b5bc81e0527b" />
 
 ## Dificuldades
 Tivemos dificuldades nas seguintes vertentes:
