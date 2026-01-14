@@ -10,8 +10,8 @@ Neste projeto criamos um jogo baseado na aplicação “Pou”, onde o jogador t
 
 
 ## Modelo de Dados e Tecnologias Utilizadas
-Este projeto utiliza a linguagem de programação Kotlin e o sistema Jetpack Compose, ele segue o modelo de programação MVVM( Model-View-ViewModel).
-O login e autenticação do utilizador é efetuado através da FireBase auth e as suas informações relativas ao jogo são todas armazenadas numa database através do FireBase FireStore.
+Este projeto foi realizado no Android Studio, utiliza a linguagem de programação Kotlin e o sistema Jetpack Compose, ele segue o modelo de programação MVVM( Model-View-ViewModel).
+O login e autenticação do utilizador é efetuado através da FireBase Auth e as suas informações relativas ao jogo são todas armazenadas numa database através do FireBase FireStore.
 
 
 # Estrutura de Dados
